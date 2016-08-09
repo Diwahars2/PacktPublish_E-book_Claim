@@ -7,14 +7,13 @@ email    = 'diwahar.sivaraman@gmail.com'
 password = 'GQeb4dFEu76yJtxLhCJj0Q=='
 
 #Enter your Twilio account SID and Auth Token
-accountSid = "ACa9b3e81772d45e7ef13da76e0cd907f3"
-authToken = "6c5cfe377eb5ff9b79ddf1a371320178"
+accountSid = ""
+authToken = ""
 
-myTwilioNumber = "+1201-992-8417"
-destCellPhone = "+919901035150"
+myTwilioNumber = "+1xxxx" #Twilio Sender number.  This must be a number that can send outgoing messages
+destCellPhone = "xxxx" # Verified Number by Twilio.com
 
 form_url = 'https://www.packtpub.com/packt/offers/free-learning'
-
 
 def claim_book(form_url, email, password):
     hdr = {
@@ -27,7 +26,6 @@ def claim_book(form_url, email, password):
     s = requests.Session()
     r = requests.get(form_url, headers=hdr)
     soup = BeautifulSoup(r.text)
-   # print soup
     h2 = soup.find('div', {'class': 'dotd-title'}).find('h2').next_element.replace('\t', '').replace('\n', '').strip(' ')
     print h2
 
@@ -50,7 +48,6 @@ def claim_book(form_url, email, password):
        # print 'Login failed'
         return
 
-    #url = soup.find('a', class_='twelve-days-claim')
     url = soup.find(attrs={'class':'twelve-days-claim'})['href']
 
     if not url:
@@ -60,8 +57,8 @@ def claim_book(form_url, email, password):
 
     if r.status_code == 200:
         print 'Success'
-        twilioClient.messages.create(to="+919901035150", from_="+12019928417",
-                                                 body="Book Fetched:" + h2)
+        # sends a text from fromnumber to to number consisting of body_text
+        twilioClient.messages.create(to="+919901035150", from_="+12019928417",body="Book Fetched:" + h2)
     else:
         print 'Error claiming book'
 
