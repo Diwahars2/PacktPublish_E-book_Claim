@@ -2,7 +2,7 @@
 #funtion to enc creds via 3des and junk... used by other scripts in this folder to get/use creds
 #ex.. ASA Shared license script
 from pyDes import *
-import base64
+#import base64
 
 def getpasswd( encstring ):
         encstring = encstring.decode('base64')
